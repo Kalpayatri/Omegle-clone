@@ -4,8 +4,8 @@ import AgoraRTC from 'agora-rtc-sdk-ng';
 import './App.css';
 
 const socket = io('https://backend-omegle-production.up.railway.app', {
-  transports: ['websocket', 'polling'], // Ensure compatibility
-  withCredentials: true, // Send cookies
+  transports: ['websocket', 'polling'],
+  withCredentials: true,
 });
 const APP_ID = '93861d0efa7f43e59c0a9f3fce4935bf'; 
 const TOKEN = '007eJxTYLgosY/brnAPC0tT8PzZj7790WgWUna7ybI0awO/Fo9NY4MCg6WxhZlhikFqWqJ5molxqqllskGiZZpxWnKqiaWxaVKab++ctIZARobjnP1MjAwQCOKzMJSkFpcwMAAAoiodaQ=='; // Replace with your new Agora token
@@ -21,6 +21,7 @@ function App() {
   const messagesEndRef = useRef(null);
   const videoRef = useRef(null);
   const [videoEnabled, setVideoEnabled] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
@@ -32,10 +33,15 @@ function App() {
       setJoinedRoom(true);
       setMessages([]);
 
-      const [microphoneTrack, cameraTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
-      setLocalTracks([microphoneTrack, cameraTrack]);
-      await client.join(APP_ID, 'test', TOKEN); 
-      await client.publish([microphoneTrack, cameraTrack]);
+      try {
+        const [microphoneTrack, cameraTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
+        setLocalTracks([microphoneTrack, cameraTrack]);
+        await client.join(APP_ID, room, TOKEN);
+        await client.publish([microphoneTrack, cameraTrack]);
+      } catch (err) {
+        console.error('Error joining room or publishing tracks:', err);
+        setError('Failed to join the video room. Please try again.');
+      }
     });
 
     return () => {
@@ -64,7 +70,7 @@ function App() {
       });
 
       client.on('user-unpublished', (user) => {
-        document.getElementById(user.uid.toString()).remove();
+        document.getElementById(user.uid.toString())?.remove();
       });
     };
 
@@ -107,6 +113,7 @@ function App() {
         </form>
       ) : (
         <>
+          {error && <p className="error">{error}</p>}
           <ul id="messages">
             {messages.map((msg, index) => (
               <li key={index}>{msg}</li>
