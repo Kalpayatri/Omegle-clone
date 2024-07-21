@@ -36,7 +36,7 @@ function App() {
       try {
         const [microphoneTrack, cameraTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
         setLocalTracks([microphoneTrack, cameraTrack]);
-        await client.join(APP_ID, room, TOKEN);
+        await client.join(APP_ID, 'test' , TOKEN);
         await client.publish([microphoneTrack, cameraTrack]);
       } catch (err) {
         console.error('Error joining room or publishing tracks:', err);
