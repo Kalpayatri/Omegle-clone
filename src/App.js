@@ -8,7 +8,7 @@ const socket = io('https://backend-omegle-production.up.railway.app', {
   withCredentials: true,
 });
 const APP_ID = '93861d0efa7f43e59c0a9f3fce4935bf'; 
-const TOKEN = '007eJxTYFgz8Y9P67u2VnYxro1hJVHlk0pnqvKrN5Q/CQxzFpG7slCBwdLYwswwxSA1LdE8zcQ41dQy2SDRMs04LTnVxNLYNCkt5MmctIZARobIphZmRgYIBPFZGEpSi0sYGADiAR5Z'; 
+const TOKEN = '007eJxTYFgz8Y9P67u2VnYxro1hJVHlk0pnqvKrN5Q/CQxzFpG7slCBwdLYwswwxSA1LdE8zcQ41dQy2SDRMs04LTnVxNLYNCkt5MmctIZARobIphZmRgYIBPFZGEpSi0sYGADiAR5Z';
 
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
@@ -36,7 +36,7 @@ function App() {
       try {
         const [microphoneTrack, cameraTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
         setLocalTracks([microphoneTrack, cameraTrack]);
-        await client.join(APP_ID, room , TOKEN);
+        await client.join(APP_ID, room, TOKEN);
         await client.publish([microphoneTrack, cameraTrack]);
       } catch (err) {
         console.error('Error joining room or publishing tracks:', err);
