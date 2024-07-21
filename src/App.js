@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import AgoraRTC from 'agora-rtc-sdk-ng';
 import './App.css';
 
-const socket = io('http://localhost:3000');
+const socket = io('https://backend-omegle-production.up.railway.app');
 const APP_ID = '93861d0efa7f43e59c0a9f3fce4935bf'; 
 const TOKEN = '007eJxTYLgosY/brnAPC0tT8PzZj7790WgWUna7ybI0awO/Fo9NY4MCg6WxhZlhikFqWqJ5molxqqllskGiZZpxWnKqiaWxaVKab++ctIZARobjnP1MjAwQCOKzMJSkFpcwMAAAoiodaQ=='; // Replace with your new Agora token
 
