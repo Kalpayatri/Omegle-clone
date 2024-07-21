@@ -15,8 +15,6 @@ function App() {
   const [room, setRoom] = useState('');
   const [joinedRoom, setJoinedRoom] = useState(false);
   const [localTracks, setLocalTracks] = useState([]);
-  const [remoteUsers, setRemoteUsers] = useState([]);
-  const [joinedChannel, setJoinedChannel] = useState(false);
   const messagesEndRef = useRef(null);
   const videoRef = useRef(null);
   const [videoEnabled, setVideoEnabled] = useState(true);
@@ -35,7 +33,6 @@ function App() {
       setLocalTracks([microphoneTrack, cameraTrack]);
       await client.join(APP_ID, 'test', TOKEN); 
       await client.publish([microphoneTrack, cameraTrack]);
-      setJoinedChannel(true);
     });
 
     return () => {
@@ -61,12 +58,10 @@ function App() {
           videoRef.current.append(remoteContainer);
           remoteVideoTrack.play(remoteContainer);
         }
-        setRemoteUsers((prevUsers) => [...prevUsers, user]);
       });
 
       client.on('user-unpublished', (user) => {
         document.getElementById(user.uid.toString()).remove();
-        setRemoteUsers((prevUsers) => prevUsers.filter((u) => u.uid !== user.uid));
       });
     };
 
