@@ -8,7 +8,7 @@ const socket = io('https://backend-omegle-production.up.railway.app', {
   withCredentials: true,
 });
 const APP_ID = '93861d0efa7f43e59c0a9f3fce4935bf'; 
-const TOKEN = '007eJxTYFjpm+QdIe2xn/sub6Dq1WnTS9fMmTH1r9Xv04XL5+18H3xDgcHS2MLMMMUgNS3RPM3EONXUMtkg0TLNOC051cTS2DQp7cfdOWkNgYwMa6YLMzIyQCCIz8JQlJ+fy8AAAMGQIgU='; 
+const TOKEN = '007eJxTYFgz8Y9P67u2VnYxro1hJVHlk0pnqvKrN5Q/CQxzFpG7slCBwdLYwswwxSA1LdE8zcQ41dQy2SDRMs04LTnVxNLYNCkt5MmctIZARobIphZmRgYIBPFZGEpSi0sYGADiAR5Z'; 
 
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
